@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const carrito = [];
+
+      // function agregar_al_carrito(nombre_producto) {
+      //   carrito.push(nombre_producto);
+      // }
+
+      // agregar_al_carrito("Celular");
+      // agregar_al_carrito("Monitor");
+
+      // console.log(carrito.length);
+
+      carrito.push("Producto 1");
+      carrito.push("Celular 1");
+      carrito.push("Celular Xiaomi");
+      carrito.push("Celular 3");
+      carrito.push("El último elemento de todos");
+      carrito.unshift("El primero de todos");
+
+      // carrito.pop();
+      // carrito.shift();
+
+      // for (let indice = 0; indice < carrito.length; indice++) {
+      //   console.log(carrito[indice]);
+      // }
+
+      // console.log(carrito.join("* "));
+
+      console.log(carrito);
+
+      // const indice_xiaomi = carrito.indexOf("Celular Xiaomi");
+      // console.log(indice_xiaomi);
+
+      // if (indice_xiaomi != -1) {
+      //   console.log("El producto Celular Xiaomi está en el carrilo");
+      // }else{
+      //   console.log("No está en el carrito")
+      // }
+
+      if (carrito.includes("Celular Xiaomi") == true) {
+        console.log("El producto Celular Xiaomi está en el carrilo");
+      } else {
+        console.log("No está en el carrito");
+      }
+    </script>
+  </body>
+</html>
