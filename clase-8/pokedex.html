@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        background-color: #333;
+        text-align: center;
+        padding: 10px;
+        color: white;
+        background-color: red;
+      }
+      #inputPokemon {
+        width: 50%;
+        font-size: 40px;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      #infoPokedex {
+        width: 50%;
+        background-color: black;
+        border-radius: 10px;
+        margin: auto;
+        border: 10px solid white;
+        margin-top: 20px;
+        text-transform: capitalize;
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      span {
+        border: 1px solid white;
+        border-radius: 10px;
+        padding: 5px;
+      }
+      #infoPokedex img {
+        max-height: 340px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="formPokedex">
+      <input type="text" id="inputPokemon" value="" placeholder="Buscar pokémon..." />
+    </form>
+    <div id="infoPokedex">
+      <!-- Acá vamos a mostrar la info del pokémon solicitado. -->
+    </div>
+    <script>
+      const formPokemon = document.querySelector("#formPokedex");
+      const divInfoPokedex = document.querySelector("#infoPokedex");
+      const inputPokemon = document.querySelector("#inputPokemon");
+
+      // Evento formulario que se dispara cuando envía el formulario
+      formPokemon.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const pokemon = inputPokemon.value;
+        divInfoPokedex.innerHTML = "Cargando...";
+        cargarPokemon(pokemon);
+        //console.log("Buscar pokémon: " + pokemon);
+      });
+
+      // Versión fachera
+      async function cargarPokemon(pokemon) {
+        const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`);
+        const infoPokemon = await respuesta.json();
+        divInfoPokedex.innerHTML = `
+              <h1>#${infoPokemon.id} - ${infoPokemon.name}</h1>
+              <img src="${infoPokemon.sprites.other.dream_world.front_default}" alt="${infoPokemon.name}"/>
+              <p>
+                <span>HP: ${infoPokemon.stats[0].base_stat}</span>
+                <span>Altura: ${infoPokemon.height} mt</span>
+                <span>Peso: ${infoPokemon.weight} kg</span>
+              </p>
+            `;
+      }
+    </script>
+  </body>
+</html>

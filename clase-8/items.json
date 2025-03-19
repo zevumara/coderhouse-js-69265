@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nombre": "Poción I",
+    "precio": 400,
+    "imagen": "pocion.png"
+  },
+  {
+    "id": 2,
+    "nombre": "Espada V",
+    "precio": 700,
+    "imagen": "espada.png"
+  },
+  {
+    "id": 3,
+    "nombre": "Escudo III",
+    "precio": 500,
+    "imagen": "escudo.png"
+  },
+  {
+    "id": 4,
+    "nombre": "Súper Espada",
+    "precio": 500,
+    "imagen": "espada.png"
+  }
+]
