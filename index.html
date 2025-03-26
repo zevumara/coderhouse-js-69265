@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css
+"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+  </head>
+  <body>
+    <div style="padding: 0 0 40px 0">
+      <form id="agregar_pokemon_favorito">
+        <input id="input_pokemon" type="text" value="" placeholder="Agregar pokémon..." />
+      </form>
+    </div>
+    <div
+      id="pokemon_aleatorio"
+      style="border: 1px solid black; display: flex; align-items: center; justify-content: center"
+    ></div>
+
+    <script>
+      const form_pokemon_favorito = document.querySelector("#agregar_pokemon_favorito");
+      form_pokemon_favorito.addEventListener("submit", (event) => {
+        Swal.fire({
+          title: "Cargando...",
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+        event.preventDefault();
+        const input_pokemon = document.querySelector("#input_pokemon");
+        agregar_favorito(input_pokemon.value);
+      });
+
+      async function agregar_favorito(input_value) {
+        try {
+          const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${input_value}`);
+          const pokemon = await respuesta.json();
+          // Si llego hasta acá, es porque la petición salió bien
+          console.log("El pokémon es:", pokemon);
+          Toastify({
+            text: `Agregaste a ${pokemon.name} a tus favoritos.`,
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+          }).showToast();
+          Swal.close();
+        } catch (error) {
+          Swal.close();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: `El pokémon que buscaste "${input_value}" no existe.`,
+          });
+        }
+      }
+
+      async function cargar_pokemon_aleatorio() {
+        const numero_aleatorio = Math.floor(Math.random() * 150) + 1;
+        const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${numero_aleatorio}`);
+        const pokemon = await respuesta.json();
+        // Si llegamos acá, es porque salió todo bien:
+        const div_pokemon_aleatorio = document.querySelector("#pokemon_aleatorio");
+        div_pokemon_aleatorio.innerHTML = `
+            <h2>#${pokemon.id} - ${pokemon.name}</h2>
+            <img src="${pokemon.sprites.front_default}" height="120" alt="${pokemon.name}" />
+            `;
+      }
+
+      setInterval(cargar_pokemon_aleatorio, 1000);
+    </script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js
+    "></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  </body>
+</html>
